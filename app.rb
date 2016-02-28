@@ -21,18 +21,15 @@ class Router < Sinatra::Base
   get '/' do
     # get current location
     @current_location = RestClient.get('http://geoip.nekudo.com/api/')
-    #@current_location = RestClient.get('http://freegeoip.net/json')
     @current_location = JSON.parse(@current_location)['location']
 
     # get campaign office distance
     @all_offices = ALL_OFFICES.dup
-
     @all_offices.each do |office|
       distance_matrix = Gistance.distance_matrix(
         destinations: ["#{@current_location['latitude']},#{@current_location['longitude']}"],
         origins: ["#{office[:lat]},#{office[:lon]}"]
       )
-      #require 'pry'; binding.pry
       office[:distance_int] = distance_matrix['rows'][0]['elements'][0]['distance']['value']
       office[:distance_text] = distance_matrix['rows'][0]['elements'][0]['distance']['text']
     end

@@ -8,4 +8,8 @@ class Router < Sinatra::Base
   get '/' do
     erb :index
   end
+
+  get '/provide' do
+    #
+  end
 end

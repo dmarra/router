@@ -1,0 +1,14 @@
+<h1 class="center">Carpools Near <%= params[:zip] %></h1>
+
+<ul>
+  <% @all_carpools['results'].each do |carpool| %>
+    <% next if carpool['capacity'] == '0' %>
+
+    <li>
+      <a href="<%= carpool['url'] %>">
+        <%= carpool['name'] %> | <%= carpool['venue_city'] + ", " + carpool['venue_state_cd'] %>
+        (<%= carpool['distance'].to_i %> miles away)
+      </a>
+    </li>
+<% end %>
+</ul>

@@ -4,12 +4,12 @@ require 'rest-client'
 require 'csv'
 require 'gistance'
 
-class Router < Sinatra::Base
-  # get all campaign offices
-  CAMPAIGN_CSV = RestClient.get('http://d2bq2yf31lju3q.cloudfront.net/d/campaign-offices.csv')
-  ALL_OFFICES = CSV.new(CAMPAIGN_CSV, headers: true, header_converters: :symbol)
-  ALL_OFFICES = ALL_OFFICES.to_a.map {|row| row.to_hash }.freeze
+# get all campaign offices
+CAMPAIGN_CSV = RestClient.get('http://d2bq2yf31lju3q.cloudfront.net/d/campaign-offices.csv')
+ALL_OFFICES = CSV.new(CAMPAIGN_CSV, headers: true, header_converters: :symbol)
+ALL_OFFICES = ALL_OFFICES.to_a.map {|row| row.to_hash }.freeze
 
+class Router < Sinatra::Base
   Gistance.configure do |c|
     c.units = 'imperial'
   end

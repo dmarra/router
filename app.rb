@@ -20,7 +20,7 @@ class Router < Sinatra::Base
 
   get '/' do
     # get current location
-    @current_location = RestClient.get('http://geoip.nekudo.com/api/')
+    @current_location = RestClient.get("http://geoip.nekudo.com/api/#{request.ip}")
     @current_location = JSON.parse(@current_location)['location']
 
     # get campaign office distance
